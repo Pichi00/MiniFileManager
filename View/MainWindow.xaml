@@ -1,0 +1,55 @@
+﻿<Window x:Class="MiniTC.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MiniTC"
+        xmlns:vm="clr-namespace:MiniTC.ViewModel"
+        xmlns:view="clr-namespace:MiniTC.View"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+
+    <Window.DataContext>
+        <vm:MainViewModel x:Name="viewModel"/>
+    </Window.DataContext>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <view:Panel>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="UpdateDrivesEventHandler">
+                        <i:InvokeCommandAction Command="{Binding GetDrivesEvent}"/>
+                    </i:EventTrigger>
+
+                    <i:EventTrigger EventName="UpdatePathEventHandler">
+                        <i:InvokeCommandAction Command="{Binding UpdatePathEvent}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+            </view:Panel>
+            <view:Panel Grid.Column="1">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="UpdateDrivesEventHandler">
+                        <i:InvokeCommandAction Command="{Binding GetDrivesEvent}"/>
+                    </i:EventTrigger>
+
+                    <i:EventTrigger EventName="UpdatePathEventHandler">
+                        <i:InvokeCommandAction Command="{Binding UpdatePathEvent}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+            </view:Panel>
+        </Grid>
+        <Button Content="Copy >>" Grid.Row="1" Width="120" Height="50"/>
+    </Grid>
+    
+</Window>
