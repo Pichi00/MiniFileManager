@@ -10,6 +10,10 @@ namespace MiniTC.Model
     {
         public string Text { get; set; }
 
+        public PathModel( string text)
+        {
+            Text = text;
+        }
         public override string ToString()
         {
             return Text;

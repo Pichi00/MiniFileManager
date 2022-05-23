@@ -17,13 +17,20 @@ namespace MiniTC.Model
 
         public FileModel(string name, FileTypes.types type)
         {
+
             Type = type;
             Name = name;
-            if (type == FileTypes.types.DIR)
-            {
-                Name.Insert(0, "<D>");
-            }
         }
-        
+
+        public override string ToString()
+        {
+            if (Type == FileTypes.types.DIR)
+            {
+                return "<DIR>"+Name;
+            }
+            return Name;
+                
+        }
+
     }
 }

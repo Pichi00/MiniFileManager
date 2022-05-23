@@ -24,8 +24,8 @@
                         <i:InvokeCommandAction Command="{Binding GetDrivesEvent}"/>
                     </i:EventTrigger>
 
-                    <i:EventTrigger EventName="SelectionChange">
-                        <i:InvokeCommandAction Command="{Binding GetDrivesEvent}"/>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding UpdateDriveEvent}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 
@@ -34,15 +34,23 @@
             <Label Content="Path" 
                    Margin="20 0 0 0"/>
             <TextBox x:Name="CurrentPathTextBox"
-                     x:FieldModifier="private"
-                    
+                     Text="{Binding CurrentPath}"
                      IsReadOnly="True"
                      MinWidth="250"
-                     Margin="20 0 0 0"
-                     HorizontalAlignment="Left"/>
-            <ListBox MinHeight="150"
+                     Margin="20 0 10 0"
+                     HorizontalAlignment="Stretch"/>
+            <ListView Height="200"
                      Margin="20 10 10 5"
-                     ItemsSource="{Binding CurrentSubfolders}"/>
+                     ItemsSource="{Binding CurrentSubfolders}"
+                     SelectedItem="{Binding SelectedFile}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding UpdatePathEvent}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ListView>
+
+
         </StackPanel>
     </Grid>
 </UserControl>

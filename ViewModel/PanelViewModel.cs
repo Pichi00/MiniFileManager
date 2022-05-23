@@ -48,12 +48,29 @@ namespace MiniTC.ViewModel
             set
             {
                 currentSubfolders = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentSubfolders)));
             }
         }
 
-        public PathModel CurrentPath
+        private string currentPath;
+        public string CurrentPath
         {
-            get;set;
+            get => currentPath;
+            set
+            {
+                currentPath = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentPath)));
+            }
+        }
+
+        private FileModel selectedFile;
+        public FileModel SelectedFile { 
+            get => selectedFile;
+            set 
+            { 
+                selectedFile = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentPath)));
+            }
         }
 
         private ICommand getDrivesEvent;
@@ -76,16 +93,47 @@ namespace MiniTC.ViewModel
                 null)
             );
 
-        
+
         private ICommand updatePathEvent;
-        public ICommand UpdatePathEvent => updatePathEvent ?? (updatePathEvent = 
+        public ICommand UpdatePathEvent => updatePathEvent ?? (updatePathEvent =
             new RelayCommand(o => {
-                UpdateFileList(CurrentPath);
-                }, null));
+                if(SelectedFile != null && SelectedFile.Type == FileTypes.types.DIR)
+                {
+                    CurrentPath = SelectedFile.Name;
+                    UpdateFileList(CurrentPath);
+                }                
+            }, null));
 
-        public void UpdateFileList(PathModel path)
+
+        private ICommand updateDriveEvent;
+        public ICommand UpdateDriveEvent => updateDriveEvent ?? (updateDriveEvent =
+            new RelayCommand(o => {
+                if(SelectedDrive != null)
+                {
+                    CurrentPath = SelectedDrive.ToString();
+                    UpdateFileList(CurrentPath);
+                }
+            }, null));
+
+        public void UpdateFileList(string path)
         {
+            CurrentPath = path;
+            CurrentSubfolders = new List<FileModel>();
+            /*if (Directory.GetParent(path.Text) != null)
+            {
 
+            }*/
+            string[] directories = Directory.GetDirectories(path);
+            string[] files = Directory.GetFiles(path);
+
+            foreach(string d in directories)
+            {
+                CurrentSubfolders.Add(new FileModel(d, FileTypes.types.DIR));
+            }
+            foreach(string f in files)
+            {
+                CurrentSubfolders.Add(new FileModel(f, FileTypes.types.FILE));
+            }
         }
 
         /*private ICommand getSubfoldersEvent;

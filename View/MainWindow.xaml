@@ -10,11 +10,18 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
-    <Window.DataContext>
-        <vm:PanelViewModel x:Name="viewModel"/>
-    </Window.DataContext>
-    
-    <Grid>
+    <!--<Window.DataContext>
+        <vm:MainViewModel x:Name="viewModel"/>
+    </Window.DataContext>-->
+    <Window.Resources>
+        <vm:MainViewModel x:Key="MainVM"/>
+        <DataTemplate DataType="{x:Type vm:PanelViewModel}">
+            <view:Panel/>
+        </DataTemplate>
+    </Window.Resources>
+
+
+    <Grid DataContext="{StaticResource MainVM}">
         <Grid.RowDefinitions>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="1*"/>
@@ -25,15 +32,21 @@
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
 
-            <view:Panel x:Name="LeftPanel">
-
-            </view:Panel>
-            <view:Panel x:Name="RightPanel"
-                        Grid.Column="1">
-
-            </view:Panel>
+            <ContentControl Grid.Column="0" Content="{Binding LeftPanel}" />
+            <ContentControl Grid.Column="1" Content="{Binding RightPanel}" />
+            
         </Grid>
-        <Button Content="Copy >>" Grid.Row="1" Width="120" Height="50"/>
+        <Button Content="Copy >>"
+                Grid.Row="1" 
+                Width="120" 
+                Height="50">
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <i:InvokeCommandAction Command="{Binding Copy}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Button>
     </Grid>
     
 </Window>
