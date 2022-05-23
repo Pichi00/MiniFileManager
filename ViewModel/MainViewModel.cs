@@ -6,18 +6,23 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Windows.Input;
 using System.IO;
+using MiniTC.Model;
+
 
 namespace MiniTC.ViewModel
 {
+    using View;
     class MainViewModel: INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public Model.PathManager pathManager = new Model.PathManager();
 
-        private string[] currentDrives;
-        public string[] CurrentDrives
+        private List<Drive> currentDrives;
+        public List<Drive> CurrentDrives
         {
-            get => currentDrives;
+            get
+            {
+                return currentDrives;
+            }
             set
             {
                 currentDrives = value;
@@ -25,47 +30,31 @@ namespace MiniTC.ViewModel
             }
         }
 
-        private string currentDrive;
-        public string CurrentDrive
-        {
-            get => currentDrive;
-            set
-            {
-                currentDrive = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentDrive)));
-            }
-        }
-
-        private string currentPath = "C:\\";
-        public string CurrentPath
-        {
-            get => currentPath;
-            set 
-            {
-                currentPath = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentPath)));
-            }
-         }
-
-        private string[] currentSubfolders;
-
-        public string[] CurrentSubfolders
-        {
-            get => currentSubfolders;
-            set
-            {
-                currentSubfolders = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentSubfolders)));
-            }
-        }
 
         private ICommand getDrivesEvent;
-        public ICommand GetDrivesEvent => getDrivesEvent ?? (getDrivesEvent = new RelayCommand(o => CurrentDrives = pathManager.getLogicalDrives(), null));
+        public ICommand GetDrivesEvent => getDrivesEvent ?? (getDrivesEvent = 
+            new RelayCommand(
+                o =>
+                {
+                    List<Drive> drives = new List<Drive>();
+                    foreach(string s in Directory.GetLogicalDrives())
+                    {
+                        drives.Add(new Drive(s));
+                    }
+                    CurrentDrives = drives;
+                }, 
+                null)
+            );
 
-        private ICommand updatePathEvent;
-        public ICommand UpdatePathEvent => updatePathEvent ?? (updatePathEvent = new RelayCommand(o => CurrentPath = "D:\\", null));
+        
+        /*private ICommand updatePathEvent;
+        public ICommand UpdatePathEvent => updatePathEvent ?? (updatePathEvent = 
+            new RelayCommand(o => {
+                var upe = o as View.UpdatePathEventArgs;
+                CurrentPath = upe?.Drive ?? "X";
+                }, null));
 
         private ICommand getSubfoldersEvent;
-        public ICommand GetSubfoldersEvent => getSubfoldersEvent ?? (getSubfoldersEvent = new RelayCommand(o => CurrentSubfolders = Directory.GetDirectories(CurrentPath), null));
+        public ICommand GetSubfoldersEvent => getSubfoldersEvent ?? (getSubfoldersEvent = new RelayCommand(o => CurrentSubfolders = Directory.GetDirectories(CurrentPath), null));*/
     }
 }

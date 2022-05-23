@@ -64,11 +64,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\PathManager.cs" />
+    <Compile Include="Model\Drive.cs" />
+    <Compile Include="Model\File.cs" />
+    <Compile Include="Model\CurrentPath.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="View\Panel.xaml.cs">
       <DependentUpon>Panel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UpdatePathEventArgs.cs" />
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

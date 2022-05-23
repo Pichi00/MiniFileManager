@@ -51,9 +51,22 @@ namespace MiniTC.View
             RaiseUpdateDrivesEvent();
         }
 
+        public static readonly DependencyProperty CurrentDriveProperty =
+            DependencyProperty.Register(
+                    nameof(CurrentDrive),
+                    typeof(string),
+                    typeof(Panel)
+                );
 
+        public string CurrentDrive
+        {
 
-        //Update path event
+            get { return (string)GetValue(CurrentDriveProperty); }
+            set { SetValue(CurrentDriveProperty, value); }
+        }
+
+        
+        /* Update path event
         public static readonly RoutedEvent UpdatePathEvent =
        EventManager.RegisterRoutedEvent(nameof(UpdatePathEventHandler),
                     RoutingStrategy.Bubble, typeof(RoutedEventHandler),
@@ -65,18 +78,20 @@ namespace MiniTC.View
             remove { RemoveHandler(UpdatePathEvent, value); }
         }
 
-        void RaiseUpdatePathEvent()
+       /* void RaiseUpdatePathEvent()
         {
             //argument zdarzenia
-            RoutedEventArgs newEventArgs = new RoutedEventArgs(Panel.UpdatePathEvent);
+            UpdatePathEventArgs newEventArgs = new UpdatePathEventArgs(Panel.UpdatePathEvent, "Z");
+
             //wywołanie zdarzenia
             RaiseEvent(newEventArgs);
-        }
-        
+        }*/
+
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             
-            RaiseUpdatePathEvent();
+            //CurrentPathTextBox.Text = DrivesComboBox.SelectedItem.ToString();
         }
+
     }
 }

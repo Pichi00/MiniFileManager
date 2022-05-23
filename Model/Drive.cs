@@ -3,20 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.IO;
 
 namespace MiniTC.Model
 {
-    class PathManager
+    public class Drive
     {
-        public string[] getLogicalDrives()
+        public string Name { get; set; }
+
+        public Drive(string name)
         {
-            return Directory.GetLogicalDrives();
+            Name = name;
         }
 
-        public string getCurrentPath()
+        public override string ToString()
         {
-            return "";
+            return Name;
         }
+
     }
 }
