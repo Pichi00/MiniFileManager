@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              
              xmlns:local="clr-namespace:MiniTC.View"
              mc:Ignorable="d" 
@@ -14,14 +15,21 @@
                       x:Name="DrivesComboBox"
                       Width="50"
                       HorizontalAlignment="Left"
-                      PreviewMouseDown="ComboBox_MouseDown"
-                      SelectionChanged="ComboBox_SelectionChanged"
-                      SelectedItem="{Binding CurrentDrive, Mode=TwoWay, RelativeSource={RelativeSource 
-                                         Mode=FindAncestor,
-                                         AncestorType={x:Type UserControl}}}"
-                      ItemsSource="{Binding CurrentDrives}"
                       
-                      />
+                      SelectedItem="{Binding SelectedDrive, Mode=TwoWay}"
+                      ItemsSource="{Binding CurrentDrives}">
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PreviewMouseDown">
+                        <i:InvokeCommandAction Command="{Binding GetDrivesEvent}"/>
+                    </i:EventTrigger>
+
+                    <i:EventTrigger EventName="SelectionChange">
+                        <i:InvokeCommandAction Command="{Binding GetDrivesEvent}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                
+            </ComboBox>
 
             <Label Content="Path" 
                    Margin="20 0 0 0"/>

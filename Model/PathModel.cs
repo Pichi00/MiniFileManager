@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace MiniTC.Model
 {
-    public class CurrentPath
+    public class PathModel
     {
-        public string Content { get; set; }
+        public string Text { get; set; }
+
+        public override string ToString()
+        {
+            return Text;
+        }
     }
 }

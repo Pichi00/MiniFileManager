@@ -67,7 +67,9 @@
     <Compile Include="Model\Drive.cs" />
     <Compile Include="Model\File.cs" />
     <Compile Include="Model\CurrentPath.cs" />
+    <Compile Include="Model\FileTypes.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\PanelViewModel.cs" />
     <Compile Include="View\Panel.xaml.cs">
       <DependentUpon>Panel.xaml</DependentUpon>
     </Compile>

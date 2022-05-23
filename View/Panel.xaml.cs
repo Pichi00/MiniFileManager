@@ -25,7 +25,7 @@ namespace MiniTC.View
             InitializeComponent();
         }
 
-
+        /*
         //Update drives event
         public static readonly RoutedEvent UpdateDrivesEvent =
         EventManager.RegisterRoutedEvent(nameof(UpdateDrivesEventHandler),
@@ -51,7 +51,7 @@ namespace MiniTC.View
             RaiseUpdateDrivesEvent();
         }
 
-        public static readonly DependencyProperty CurrentDriveProperty =
+        /*public static readonly DependencyProperty CurrentDriveProperty =
             DependencyProperty.Register(
                     nameof(CurrentDrive),
                     typeof(string),
@@ -65,9 +65,18 @@ namespace MiniTC.View
             set { SetValue(CurrentDriveProperty, value); }
         }
 
-        
-        /* Update path event
-        public static readonly RoutedEvent UpdatePathEvent =
+       /* private void DrivesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (DrivesComboBox.SelectedItem != null)
+            {
+                CurrentDrive = DrivesComboBox.SelectedItem.ToString();
+            }
+            
+        }
+
+
+        // Update path event
+        /*public static readonly RoutedEvent UpdatePathEvent =
        EventManager.RegisterRoutedEvent(nameof(UpdatePathEventHandler),
                     RoutingStrategy.Bubble, typeof(RoutedEventHandler),
                     typeof(Panel));
@@ -78,20 +87,20 @@ namespace MiniTC.View
             remove { RemoveHandler(UpdatePathEvent, value); }
         }
 
-       /* void RaiseUpdatePathEvent()
+        void RaiseUpdatePathEvent()
         {
             //argument zdarzenia
             UpdatePathEventArgs newEventArgs = new UpdatePathEventArgs(Panel.UpdatePathEvent, "Z");
 
             //wywołanie zdarzenia
             RaiseEvent(newEventArgs);
-        }*/
+        }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        /*private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             
             //CurrentPathTextBox.Text = DrivesComboBox.SelectedItem.ToString();
-        }
+        }*/
 
     }
 }
