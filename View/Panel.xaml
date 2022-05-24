@@ -39,6 +39,19 @@
                      MinWidth="250"
                      Margin="20 0 10 0"
                      HorizontalAlignment="Stretch"/>
+
+            <Button x:Name="BackButton"
+                    Content="Back"
+                    Margin="20 10 10 0">
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding Back}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                
+            </Button>
+
             <ListView Height="200"
                      Margin="20 10 10 5"
                      ItemsSource="{Binding CurrentSubfolders}"

@@ -115,6 +115,18 @@ namespace MiniTC.ViewModel
                 }
             }, null));
 
+        private ICommand back;
+        public ICommand Back => back ?? (back =
+            new RelayCommand(
+            o =>{
+                CurrentPath = Directory.GetParent(CurrentPath).FullName;
+                UpdateFileList(CurrentPath);
+            },
+            o => (
+            CurrentPath != null &&
+            Directory.GetParent(CurrentPath) != null
+            )));
+
         public void UpdateFileList(string path)
         {
             CurrentPath = path;

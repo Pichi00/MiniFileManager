@@ -38,6 +38,7 @@ namespace MiniTC.ViewModel
                 o => (
                     LeftPanel.CurrentPath != null &&
                     RightPanel.CurrentPath != null &&
+                    !LeftPanel.CurrentPath.Equals(RightPanel.CurrentPath) &&
                     LeftPanel.SelectedFile != null &&
                     LeftPanel.SelectedFile.Type == Model.FileTypes.types.FILE
                 )));
