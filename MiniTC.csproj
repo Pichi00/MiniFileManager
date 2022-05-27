@@ -65,8 +65,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\Drive.cs" />
-    <Compile Include="Model\File.cs" />
-    <Compile Include="Model\PathModel.cs" />
+    <Compile Include="Model\FileManager.cs" />
+    <Compile Include="Model\FileModel.cs" />
     <Compile Include="Model\FileTypes.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\PanelViewModel.cs" />

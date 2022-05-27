@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using System.Windows;
-using System.IO;
+using MiniTC.Model;
 
 namespace MiniTC.ViewModel
 {
@@ -33,7 +32,7 @@ namespace MiniTC.ViewModel
         public ICommand Copy => copy ?? (copy =
             new RelayCommand(
                 o => {
-                copyFile();
+                FileManager.copyFile(LeftPanel, RightPanel);
                 },
                 o => (
                     LeftPanel.CurrentPath != null &&
@@ -43,16 +42,6 @@ namespace MiniTC.ViewModel
                     LeftPanel.SelectedFile.Type == Model.FileTypes.types.FILE
                 )));
 
-        public void copyFile()
-        {
-                string file = LeftPanel.SelectedFile.Name;
-                string fileName = Path.GetFileName(file);
-                string destFile = Path.Combine(RightPanel.CurrentPath, fileName);
-                File.Copy(file, destFile, true);
-                LeftPanel.UpdateFileList(LeftPanel.CurrentPath);
-                RightPanel.UpdateFileList(RightPanel.CurrentPath);
-                MessageBox.Show($"File {file} coppied to {destFile} successfully.");
-
-        }
+        
     }
 }
