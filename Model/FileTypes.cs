@@ -8,6 +8,6 @@ namespace MiniTC.Model
 {
     public class FileTypes
     {
-        public enum types { FILE, DIR }
+        public enum types { FILE, DIR, BACK }
     }
 }

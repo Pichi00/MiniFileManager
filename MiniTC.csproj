@@ -73,7 +73,6 @@
     <Compile Include="View\Panel.xaml.cs">
       <DependentUpon>Panel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UpdatePathEventArgs.cs" />
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

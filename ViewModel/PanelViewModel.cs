@@ -68,7 +68,7 @@ namespace MiniTC.ViewModel
             set 
             { 
                 selectedFile = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentPath)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedFile)));
             }
         }
 
@@ -96,9 +96,9 @@ namespace MiniTC.ViewModel
         private ICommand updatePathEvent;
         public ICommand UpdatePathEvent => updatePathEvent ?? (updatePathEvent =
             new RelayCommand(o => {
-                if(SelectedFile != null && SelectedFile.Type == FileTypes.types.DIR)
+                if(SelectedFile != null && SelectedFile.Type != FileTypes.types.FILE)
                 {
-                    CurrentPath = SelectedFile.Name;
+                    CurrentPath = FileManager.getPathTo(SelectedFile, CurrentPath);
                     CurrentSubfolders = FileManager.updateSubfolders(CurrentPath);
                 }                
             }, null));
@@ -114,20 +114,7 @@ namespace MiniTC.ViewModel
                 }
             }, null));
 
-        private ICommand back;
-        public ICommand Back => back ?? (back =
-            new RelayCommand(
-            o =>{
-                CurrentPath = FileManager.getParentPath(CurrentPath);
-                CurrentSubfolders = FileManager.updateSubfolders(CurrentPath);
-            },
-            o => (
-            CurrentPath != null &&
-            FileManager.getParentPath(CurrentPath) != null
-            )));
-
-        
-
+       
         /*private ICommand getSubfoldersEvent;
         public ICommand GetSubfoldersEvent => getSubfoldersEvent ?? (getSubfoldersEvent = new RelayCommand(o => CurrentSubfolders = Directory.GetDirectories(CurrentPath), null));*/
     }

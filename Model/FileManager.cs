@@ -31,6 +31,11 @@ namespace MiniTC.Model
             string[] directories = Directory.GetDirectories(path);
             string[] files = Directory.GetFiles(path);
 
+            if (Directory.GetParent(path) != null)
+            {
+                subfolders.Add(new FileModel("...", FileTypes.types.BACK));
+            }                
+
             foreach (string d in directories)
             {
                 subfolders.Add(new FileModel(d, FileTypes.types.DIR));
@@ -40,6 +45,15 @@ namespace MiniTC.Model
                 subfolders.Add(new FileModel(f, FileTypes.types.FILE));
             }
             return subfolders;
+        }
+
+        public static string getPathTo(FileModel file, string curr_dir)
+        {
+            if(file.Type == FileTypes.types.BACK && getParentPath(curr_dir) != null)
+            {
+                return getParentPath(curr_dir);
+            }
+            return file.Name;
         }
 
         public static void copyFile(PanelViewModel source, PanelViewModel destination)
